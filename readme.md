@@ -32,4 +32,5 @@
 
 ### Reference
 * [A Review on Deep Learning Techniques Applied to Semantic Segmentation](paper/A%20Review%20on%20Deep%20Learning%20Techniques%20Applied%20to%20Semantic%20Segmentation.pdf)
-
+    * [A Review on Deep Learning Techniques Applied to Semantic Segmentation](https://arxiv.org/pdf/1704.06857.pdf)
+    * [深度学习图像分割的常用方法](http://blog.csdn.net/gqixf/article/details/78030203)
