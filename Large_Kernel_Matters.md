@@ -1,5 +1,6 @@
 ### Large Kernel Matters
 
+
 ### Abstract
 1. 在同样计算复杂度下，在整个网络中“堆叠小的卷积核”是设计网络架构的一个趋势，
 因为“堆叠小的卷积核”比“大的卷积核”更加高效。   
@@ -8,6 +9,7 @@
 3. 根据我们的设计原则，建议用Global Convolutional Network来解决语义分割中的
 “分类(classification)”和“定位(localization)”问题，
 也建议一个基于残差的边界细化进一步细化物体边界。
+
 
 ### Introduction
 1. 语义分割可以看成时每一个像素的分类问题，即像素级分类。在这个问题中有两个任务：
@@ -95,4 +97,42 @@ classification和localization。一个设计良好的模型应该能同时解决
 
 
 ### Experiment
+1. 实验设计
+    * 用在ImageNet上训练的ResNet152作为预训练模型
+    * 用SGD优化、批次大小为1、momentum为0.99、weight decay为0.0005
+    * 数据增强、减均值、水平翻转
+    * 用IoU测量性能
+    * 为了让最终特征图为16*16，把图片大小补成512*512
+
+2. How GCN contributes to segmentation results?
+    * GCN通过对特征图的densely connections，增进了分割模型的分类能力（增强处理图片变换的能力）。
+    * 边界像素主要收到定位能力的影响
+    * 将分割score map拆分成两部分，分别评估这两部分的性能
+        * boundary region: locate close to objects' boundary(distance<=7)
+        * internal region: other pixels
+
+3. Pascal VOC 2012
+    * 使用MSCOCO数据库作为预训练的模型
+    * 训练分为三个阶段
+        1. mix up COCO,SBD,PASCAL VOC 2012的图片(109892张)，padding to 640*640
+        2. use SBD,PASCAL VOC 2012的图片，padding to 512*512
+        3. use PASCAL VOC 2012的图片，padding to 512*512
+
+4. Cityyscapes
+    * 训练分为两个阶段
+        1. mix up the coarse annotated images and the training set
+        2. only finetune the network on training set
+
+
+### Conclusion
+1. Following the principle of large-size kernels, we propose the
+Global Convolutional Network.
+2. To further refine the object boundaries, we present a 
+novel Boundary Refinement block.
+3. Global Convolutional Network mainly improve the internal regions 
+while Boundary Refinement increase performance near boundaries.
+
+
+### Reference
+[Large Kernel Matters:Improve Semantic Segmentation by Global Convolutional Network](paper/Large%20Kernel%20Matters.pdf)
 
