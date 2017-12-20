@@ -80,10 +80,12 @@ classification和localization。一个设计良好的模型应该能同时解决
     Deconvolution/Unpooling/Dilated-Convolution都是用来生成高分辨率特征图的。
     分类器连接特征图上的局部信息生成像素级的分割标签。
 
-2. 使用了对称的、分离的大型filter
+2. GCN结构：使用了对称的、分离的大型filter
     * 降低模型的参数和计算复杂度
     * 在卷积层后面，没有使用任何的非线性
     * 拼接1xk+kx1和kx1+1xk的卷积结果(在inception中有详细的说明)
+
+![Global Convolutional Network](readme/large_kernel_matters_gcn.jpg)
     
 3. 整体框架
     * 使用预训练的ResNet作为特征网络，使用FCN4作为分割框架

@@ -158,10 +158,22 @@
     
 7. Large Kernel Matter [Large Kernel Matters -- Improve Semantic Segmentation by Global Convolutional Network](https://arxiv.org/pdf/1703.02719.pdf)
     * 主要贡献
-        1. 提出具有“大型核卷积”的编码器-解码器架构
+        1. 解释了为什么大型核有好的性能，进而提出了提出Global Convolutional Network，可以同时解决分类和定位问题
+        2. 针对边界对齐问题，提出边界细化模块(Boundary Refinement block)，可以进一步的提升物体边界的定位能力
     
-    * TODO
-        
+    * 语义分割需要同时进行分类和定位，文中采用大型核的卷积来替代全连接层。
+        * 由于“密集连接结构”(densely-connected structure)对变换具有不变性，所以
+        可以采用尽可能大的核（当核的大小和特征图大小相同时为全局卷积，和纯分类模型的感受野相同），
+        使特征和像素分类器之间进行密集连接，从而增强不同变换的能力。
+        * 大型核的卷积拥有更多参数，所以需要耗费更多计算量。
+        因此，论文将kxk 的卷积近似表示为kx1和kx1、kx1和1xk卷积的加和，
+        称该模块为全局卷积网络(Global Convolution Network，GCN)。
+    
+    * 架构
+        1. 编码器是ResNet，没有空洞卷积。
+        2. 解码器由GCNs和反卷积构成。
+        3. 此外架构还用到了基于残差的边界细化(Boundary Refinement, BR))模块。
+    
     ![Large Kernel Matter 架构](readme/large_kernel_matters_architecture.jpg)
     
 
