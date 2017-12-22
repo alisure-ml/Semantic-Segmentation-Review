@@ -1,5 +1,10 @@
 ## A Review on Deep Learning Techniques Applied to Semantic Segmentation
 
+
+### TODO
+* [History Of Object Recognition](paper/HistoryOfObjectRecognition.pdf)
+
+
 ### 路线
 > 图像语义分割是一个从粗略到精细的过程
 
