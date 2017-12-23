@@ -3,17 +3,22 @@
 
 ### TODO
 * [History Of Object Recognition](paper/HistoryOfObjectRecognition.pdf)
+    * 过年回家详细阅读里面的内容
 
 
 ### 路线
 > 图像语义分割是一个从粗略到精细的过程
 
-* 图像分类(图像中一个或多个实例分类)
-* 实例定位
-* 图像语义分割
-* 实例分割(同一类中不同的实例分割)   
+* 图像分类(Image Classification,图像中一个或多个实例分类)
+* 对象定位(Object Localization)
+* 对象识别(Object Recognition)
+* 图像语义分割(Semantic Segmentation)
+* 实例分割(Instance Segmentation,同一类中不同的实例分割)
+* 关键点检测(Keypoint Detection)
 
 ![from coarse to fine](readme/from_coarse_to_fine.png)
+
+![history of object recognition](readme/history_of_object_recognition.jpg)
 
 
 ### FCN问题
