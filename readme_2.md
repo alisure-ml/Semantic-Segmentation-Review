@@ -116,12 +116,27 @@
     
 3. Dilated Convolutions [Multi-Scale Context Aggregation by Dilated Convolutions](https://arxiv.org/pdf/1511.07122.pdf)
     * 主要贡献
-        1. TODO
+        1. 将VGG网络修改为含空洞卷积的`前端模块（frontend module）`
+        2. 提出输入输出、感受野的计算方法
+        3. 提出`上下文模块（context module）`，用于空洞卷积的多尺度聚合
         
-    * TODO
+    * 池化操作能够增加接受野，从而提升分类网络模型的性能。但是池化操作会降低分辨率，并不是语义分割的最佳方法。
+    因此，作者提出空洞卷积层。空洞卷积层（DeepLab中称作带孔卷积层）能够不减少空间维度的前提下，
+    使感受野呈现指数级增长。
+    
+    * `前端模块（frontend module）`：
+        * 从预训练分类网络（VGG）中移除最后的两个池化层，之后的卷积层均采用空洞卷积。
+        模型设置pool-3和pool-4层之间所有卷积层的扩张程度（dilation）为2，
+        pool-4之后卷积层的空洞值（dilation）为4。
+        * 无需增加参数即可实现密集的像素级类别预测。
+    * `上下文模块（context module）`：
+        * 使用前端模块的输出作为输入单独训练。该模块由多个不同扩张程度（dilation）的空洞卷积级联而成，
+        因此能够聚合不同尺度的上下文信息，从而改善前端模块输出的预测结果。
+    
+    ![Dilated Convolution Context module](readme/dilated_convolution_context_module.png)
     
     
-4. DeepLab
+4. DeepLab V1 / V2
     * 主要贡献
         1. TODO
         
