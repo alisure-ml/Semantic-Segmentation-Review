@@ -117,7 +117,7 @@
 3. Dilated Convolutions [Multi-Scale Context Aggregation by Dilated Convolutions](https://arxiv.org/pdf/1511.07122.pdf)
     * 主要贡献
         1. 将VGG网络修改为含空洞卷积的`前端模块（frontend module）`
-        2. 提出输入输出、感受野的计算方法
+        2. [计算输出shape和感受野大小](https://github.com/alisure-ml/FCN-Review/blob/master/Multi_Scale_Context_Aggregation_by_Dilated_Convolutions.md#%E8%AE%A1%E7%AE%97%E8%BE%93%E5%87%BAshape%E5%92%8C%E6%84%9F%E5%8F%97%E9%87%8E%E5%A4%A7%E5%B0%8F)
         3. 提出`上下文模块（context module）`，用于空洞卷积的多尺度聚合
         
     * 池化操作能够增加接受野，从而提升分类网络模型的性能。但是池化操作会降低分辨率，并不是语义分割的最佳方法。
