@@ -1,6 +1,30 @@
 ### Multi Scale Context Aggregation by Dilated Convolutions
 * [代码实现](https://github.com/alisure-ml/FCN-DilatedConvolution)
 
+
+### 计算输出shape和感受野大小
+* 若进行VALID卷积，需要对输入padding `atrous_rate - 1`个0，否则最外围的输入值就没有被卷积。   
+    所以，如果对输入不进行padding，空洞卷积的输出应该减少：  
+    ```
+    reduce_size = {[k_size * atrous_rate + (atrous_rate - 1)] - 1}
+    ```
+    由于对输入padding了 `2 * (atrous_rate - 1)`个0，所以最终减少了 `reduce_size - 2 * (atrous_rate - 1)`
+
+* 若进行SAME卷积，输入和输出的形状相同。
+
+* 计算感受野：
+    1. 相对于原始输入计算，Define the receptive field of an element p in F_i+1 as the set of elements in F_0
+        that modify the value of F_i+1(p).   
+        计算公式为：
+        ```
+        F_i+1(p) = 2 * F_i(p) - 1， F_0 = k_size
+        ```
+    2. 相对与前一个输入，感受野大小为：`核的大小` - `最外围无效的区域`     
+        ```
+        [k_size * atrous_rate + (atrous_rate - 1)] - 2 * (atrous_rate - 1)
+        ```
+
+
 ### Abstract
 * Dense prediction problems such as semantic segmentation
 are structurally different from image classification.
@@ -15,6 +39,18 @@ exponential expansion of the receptive field without loss of resolution or cover
     
 
 ### Introduction
+众所周知，图像语义分割需要获取`上下文信息`帮助提高准确率。
+* `不使用空洞卷积的传统卷积`通过`下采样（pooling）`来增大感受野，以此获取上下文信息。
+    * 卷积核的大小不变
+    * 减少了数据量
+    * 有利于防止过拟合
+    * 但是损失了分辨率，丢失了一些信息
+    
+* `空洞卷积`通过`膨胀卷积核`来增大感受野，以此获取上下文信息。
+    * 参数个数没有增加
+    * 数据量没有减少
+    * 分辨率没有损失
+    * 但是计算量增大，内存消耗增大
 
 
 ### Dilated Convolutions
