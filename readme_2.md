@@ -136,11 +136,24 @@
     ![Dilated Convolution Context module](readme/dilated_convolution_context_module.png)
     
     
-4. DeepLab V1 / V2
+4. DeepLab V1 / V2 [DeepLab: Semantic Image Segmentation with Deep Convolutional Nets, Atrous Convolution, and Fully Connected CRFs](https://arxiv.org/pdf/1606.00915.pdf)
     * 主要贡献
-        1. TODO
+        1. 采用了带孔/空洞卷积：`Atrous convolution` with upsampled filters for dense feature extraction
+        2. 提出了空洞金字塔池化：`ASPP(atrous spatial pyramid pooling)`, which encodes objects as well as image context at multiple scales
+        3. 采用全连接CRF：Combine DCNN and `fully-connected conditional random fields`, 
+        in order to produce semantically accurate predictions and 
+        detailed segmentation maps along object boundaries.
+        4. 在编码过程中获取上下文信息，因此不需要很大的解码网络。
         
-    * TODO
+    * 带孔/空洞卷积层能够不增加参数的情况下扩大感受野。
+    
+    * 通过将原始图的不同尺度传递到DCNN网络的并行分支（图像金字塔）中，
+    或者使用不同采样率的多个并行空洞卷积层（ASPP），实现多尺度处理。
+    
+    * 结构化的预测可以通过全连接的CRF实现，CRF的训练或微调作为后处理的步骤单独进行。
+    
+    ![model](readme/deeplab_model_illustration.png)   
+    ![ASPP](readme/deeplab_aspp.png)
     
     
 5. RefineNet [RefineNet: Multi-Path Refinement Networks for High-Resolution Semantic Segmentation](https://arxiv.org/pdf/1611.06612.pdf)
