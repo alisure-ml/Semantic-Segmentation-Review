@@ -41,9 +41,13 @@ our `dense semantic image segmentation` system.
 
 
 ### 贡献
-1. Atrous convolution
-2. ASPP（atrous spatial pyramid pooling）模块
-3. 结合概率图模型
+1. `Atrous convolution` with upsampled filters for dense feature extraction
+2. `ASPP(atrous spatial pyramid pooling)`, which encodes objects as well as image context at multiple scales
+3. Combine DCNN and `fully-connected conditional random fields`, 
+in order to produce semantically accurate predictions and 
+detailed segmentation maps along object boundaries.
+
+4. 在编码过程中获取上下文信息，因此不需要很大的解码网络。
 
 
 ### Abstract
@@ -156,4 +160,75 @@ such as the residual net leads to better results.
         (reducing `atrous convolution` into `regular convolution`。常规的卷积已经非常成熟且高效)
     
 2. Multiscale Image Representations using `Atrous Spatial Pyramid Pooling(ASPP,带孔空间金字塔模型)`
+We have experimented with two approaches to handling scale variability in semantic segmentation.
+
+* The first approach amounts to standard multiscale processing(标准的多尺度处理：输入图片多尺度).
+     * We extract DCNN score maps from `multiple rescaled` versions of the original 
+     image using `parallel DCNN branches` that `share the same parameters`.
+        * `共享同样的参数`，用`并行的DCNN分支`从`多尺度原图`中`提取特征图`。
+     *  To produce the ﬁnal result, we `bilinearly interpolate` the feature maps from 
+     the `parallel DCNN branches` to the `original image resolution` and fuse them, 
+     by taking at each position the `maximum response` across the different scales. 
+        * 把并行的DCNN分支提取的特征图插值成原始图像的分辨率，然后把最大响应作为结果。
+
+* The second approach uses multiple parallel atrous convolutional layers 
+with different sampling rates(用不同参数的atrous convolutional处理相同的特征图).
+    * This is Atrous Spatial Pyramid Pooling
+    ![ASPP](readme/deeplab_aspp.png)
+     
+3. Structured Prediction with Fully-Connected Conditional Random Fields 
+for Accurate Boundary Recovery
+
+
+### Experimental Results
+* Finetune the model weights of `the Imagenet-pretrained` VGG-16 or ResNet-101 networks
+to adapt them to the semantic segmentation task.
+    * 使用Imagenet预训练模型的权重
+
+* Our loss function is `the sum of cross-entropy` terms for 
+each spatial position in the CNN output map.
+    * 目标函数是交叉熵的和。
+
+* We optimize the objective function by `the standard SGD`.
+    * 使用SGD方法进行优化。
+
+
+### PASCAL VOC 2012
+* Results from our conference version
+    * We use a mini-batch of 20 images
+    * We initial learning rate of 0.001 (0.01 for the ﬁnal classiﬁer layer),
+     multiplying the learning rate by 0.1 every 2000 iterations. 
+    * We use momentum of 0.9 and weight decay of 0.0005.
+
+* Improvements after conference version of this work
+    1. different learning policy during training.
+        * employing a `"poly" learning rate policy`:`(1 - iter/max_iter)**power`(with power=0.9)
+        * `"poly" learning rate policy` is more effective than 
+        `"step" learning rate`(reduce the learning rate at a fixed step size).
+    2. `atrous spatial pyramid pooling`
+        *  ASPP for VGG-16 employs several parallel fc6-fc7-fc8 branches. 
+        They all use 3×3 kernels but different atrous rates r in the ‘fc6’ 
+        in order to capture objects of different size.
+            1. Our baseline `LargeFOV` model, having a single branch with r = 12
+            2. `ASPP-S`, with four branches and smaller atrous rates (r = {2, 4, 8, 12})
+            3. `ASPP-L`, with four branches and larger rates (r = {6, 12, 18, 24})    
+        ![ASPP](readme/deeplab_improve_after_conference_aspp.png)
+    3. employment of deeper networks and multi-scale processing.    
+        * Similar to what we did for VGG-16 net, we `re-purpose ResNet-101` by `atrous convolution`.
+            * 作者建议使用残差网络
+        另外，we adopt several other features:
+        1. `Multi-scale inputs`
+            * We separately feed to the DCNN images at scale={0.5,0.75, 1},
+            fusing their score maps by taking the maximum response across scales
+            for each position separately.
+        2. `Models pretrained` on MS-COCO
+        3. `Data augmentation` by randomly scaling the input images (from 0.5 to 1.5) during training.
+        
+    4. 结果：
+        * `Adopting ResNet-101` instead of VGG-16 signiﬁcantly improves DeepLab performance.
+        * `Multiscale fusion` brings extra 2.55% improvement.
+        * `Pretraining the model` on MS-COCO gives another 2.01% gain.
+        * `Data augmentation` during training is effective (about 1.6% improvement).
+        * Further 0.8% improvement is achieved by `atrous spatial pyramid pooling (ASPP)`.
+
 
