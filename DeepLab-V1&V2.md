@@ -126,8 +126,8 @@ such as the residual net leads to better results.
         一个补救措施是采用`反卷积`（因此，也就增加了计算时间和内存消耗）
     
     * We advocate instead the use of `atrous convolution`. This allows us to compute the responses of
-    any layer at any desirable resolution.
-        ![deeplab atrous convolutional define](readme/deeplab_atrous_convolutional_define.png)   
+    any layer at any desirable resolution.    
+        ![deeplab atrous convolutional define](readme/deeplab_atrous_convolutional_define.png)     
         ![deeplab atrous convolutional illustration](readme/deeplab_atrous_convolutional_illustration.png)
     
     * In the context of DCNNs one can use atrous convolution in a chain of layers, effectively
@@ -149,7 +149,7 @@ such as the residual net leads to better results.
         * 但是，`too costly`。
         * 不懂！！！
     
-    * 下图讲的非常好
+    * 下图讲的非常好    
     ![field-of-view](readme/deeplab_atrous_convolutional_field-of-view.png)
         
     * 两种实现方式
