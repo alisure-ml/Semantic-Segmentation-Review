@@ -1,4 +1,5 @@
 ### DeepLab V3: Rethinking Atrous Convolution for Semantic Image Segmentation
+[Project: DeepLab-V3](https://github.com/alisure-ml/FCN-DeepLab-V3.git)
 
 
 ### Abstract
@@ -6,8 +7,7 @@
 `filter's field-of-view` as well as `the resolution of feature` responses computed by DCNN.
     * atrous convolution 可以确切的调整核的感受野和卷积之后的特征图分辨率。
     
-* 为了解决语义对象的多尺度问题，我们用atrous convolutional设计了
-一个模块来提取多尺度上下文信息。
+* 为了解决语义对象的多尺度问题，我们用atrous convolutional设计了一个模块来提取多尺度上下文信息
 
 * 对ASPP模块进行增强：探索多尺度的卷积特征，这些特征包含了全局信息。
     * probes convolutional feature at multiple scales, with image-level features encoding
