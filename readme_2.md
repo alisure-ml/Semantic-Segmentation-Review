@@ -206,6 +206,20 @@
     
 
 8. DeepLab v3 [Rethinking Atrous Convolution for Semantic Image Segmentation](https://arxiv.org/pdf/1706.05587.pdf)
-    * TODO
+    * 主要贡献
+        1. 介绍了四种常用的获取上下文信息的方法
+        2. 级联多个空洞卷积模块(Going Deeper with Atrous Convolution)
+        3. 改进ASPP(金字塔空洞池化模块, Atrous Spatial Pyramid Pooling)
+        
+    * 论文采用空洞/扩张卷积改进ResNet模型。每个并行卷积层之后采用批量归一化操作。
     
+    * 级联模块是一个ResNet模块，但其卷积层由不同比率的空洞卷积构成。
+    
+    * 作者指出性能的提升得益于批量归一化操作和改进的多尺度上下文编码方式。
+
+    * Going Deeper with Atrous Convolution    
+        ![Going Deeper with Atrous Convolution](readme/deeplab_v3_going_deeper_with_atrous_convolution.png)
+        
+    * Atrous Spatial Pyramid Pooling   
+        ![Atrous Spatial Pyramid Pooling](readme/deeplab_v3_aspp.png)
     
