@@ -109,6 +109,149 @@ the state of the art of semantic segmentation using deep learning techniques.
 
 ### Datasets and challenges
 
+* 2D or plain RGB datasets, 2.5D or RGB-Depth(RGB-D) ones, and pure volumetric or 3D databases.
 
-
+* 2D Datasets
+    * PASCAL Visual Object Classes(VOC)
+        * a group-truth annotated dataset of images and five different competitions:
+            * classification, detection, segmentation, action classification, and person layout.
+        * the dataset have 21 classes categorized.
     
+    * PASCAL Context
+        * 对 PASCAL VOC 2010 的扩展，包含10103张图片，用于检测挑战，总用540类，只有59类常用。
+    
+    * PASCAL Part
+        * 对 PASCAL VOC 2010 的扩展，对每一个对象的每一个部分提供像素级掩码。
+    
+    * Semantic Boundaries Dataset (SBD)
+        * 对 PASCAL VOC 的扩展，包含11355张图片，提供了category-level和instance-level的信息。
+    
+    * Microsoft Common Objects in Context (COCO)
+        * image recognition, segmentation, and captioning large-scale dataset。
+        * more than 80 classes, provides more than 82783 images for training, 40504 for validation, 
+        and its test set consist of more than 800000 images.
+    
+    * SYNTHIA
+        * a large-scale collection of photo-realistic renderings of a virtual city, semantically segmented, 
+        whose purpose is scene understanding in the context of driving or urban scenarios.
+        * the dataset provides fine-grained pixel-level annotations for 11 classes.
+        * 13407 training images from rendered video streams.
+    
+    * Cityscapes
+        * focuses on semantic understanding of urban street scenes.
+    
+    * CamVid
+    
+    * KITTI
+    
+    * Youtube-Objects
+        
+    * `Adobe’s Portrait Segmentation`
+        * 800x600 pixels portrait images, captured with mobile front-facing cameras.
+        * the database consist of 1500 training images and 300 reserved for testing, 
+        both sets are fully binary annotated: person or background.
+        * it suitable for person in foreground segmentation applications.
+        
+    * Materials in Context (MINC)
+    
+    * Densely-Annotated VIdeo Segmentation (DAVIS)
+    
+    * Stanford background
+    
+    * SiftFlow
+
+* 2.5D Datasets
+    not only RGB information but also depth maps.
+    * ................................
+    
+* 3D Datasets
+    * CAD meshes
+    * point clouds
+
+
+### Methods
+    
+1. Decoder Variants
+    * SegNet
+    
+2. Integrating Context Knowledge
+    * Conditional Random Fields
+    * Dilated Convolutions
+    * Multi-scale Prediction
+        * Multi-scale convolutional architecture for semantic segmentation
+            * two path: original resolution / doubles
+        * A multi-scale cnn for affordance segmentation in rgb images
+        * Multiscale fully convolutional network with application to industrial inspection
+            * training each network independently and then the networks are combined and the last layer is fine-tuned.
+    * Feature Fusion
+        * FCN: skip connection
+        * ParseNet: early fusion
+        * SharpMask: refinement module
+    * Recurrent Neural Networks
+        * ReSeg
+        * Long Short-Term Memorized Context Fusion
+        * ...
+
+3. Instance Segmentation
+    * Its main purpose is to represent objects of `the same class split into different instances`. 
+    most of the methods rely on existing object detectors.
+    * `Instance labeling` provides us extra information for reasoning about `occlusion situations`, 
+    also `counting the number of elements` belonging to the same class and for `detecting a particular object`.
+        * 遮挡情况、同类计数、检测指定的对象
+    * SDS: Simultaneous Detection and Segmentation
+    * DeepMask: an object proposal approach based on a single ConvNet.
+        * This model predicts a `segmentation mask for an input patch` and
+         `the likelihood of this patch for containing an object`.
+    * SharpMask: a novel architecture for `object instance segmentation` implementing a `top-down refinement process`.
+        * the refinement merges spatially rich information from lower-level features 
+        with high-level semantic cues encoded in upper layers.
+    * MultiPath classifier
+    
+4. RGB-D Data
+    * use depth information and not only photometric data.
+    * depth data needs to be encoded with three channels at each pixel as if it was an RGB images.    
+    * methods:
+        1. input `depth images` to models designed for RGB data and improve in this way the performance 
+        by `learning new features from structural information`.
+        2. leverage a `multi-view approach` to improve existing `single-view works`.
+            * 利用多视的方法改进存在的单视。
+
+5. 3D Data
+
+6. Video Sequences
+    * clockwork FCN
+    * 3DCNN / Convolutional 3D(C3D)
+
+
+### Discussion
+* Evaluation metrics
+    1. execution time
+    
+    2. memory footprint
+    
+    3. accuracy
+        Metrics are usually variations on pixel accuracy and IoU:
+        * PA: Pixel Accuracy
+        * MPA: Mean Pixel Accuracy
+        * MIoU: Mean Intersection over Union
+        * FWIoU: Frequency Weighted Intersection over Union
+
+* Summary
+    1. DeepLab is the most solid method.
+    2. The 2.5D or multi-modal datasets are dominated by recurrent networks such as LSTM-CF.
+    3. video sequences
+    4. 3D convolutions
+    
+* Future Research Directions
+    1. 3D datasets
+    2. Sequence datasets
+    3. Point cloud segmentation using Graph Convolutional Networks(GCNs)
+    4. Context knowledge
+    5. Real-time segmentation
+    6. Memory
+    7. Temporal coherency on sequences(序列上的时间一致性)
+    8. Multi-view integration
+
+
+### Conclusion
+
