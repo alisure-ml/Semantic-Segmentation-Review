@@ -4,7 +4,7 @@
 
 ![Result](readme/BlitzNet_collage.png)
 
-### Introduction
+### 介绍
 
 在计算机视觉中，对象检测和语义分割是场景理解的两个基本问题。对象检测的目标是检测图片中出现的预定义类别的所有对象和它们的定位边界框，语义分割的目标是解析图像并将类标签与每个像素相关联。
 
@@ -32,7 +32,7 @@
 
 ![BlitzNet ResSkip block](readme/BlitzNet_ResSkip_block.png)
 
-模型中使用了联合下采样（upscale）输出和上采样（downscale）输出的跳跃连接（skip connections）,具体来说，下采样和上采样使用了上图中被称为ResSkip的简单策略。
+模型中使用了联合上采样（upscale）输出和下采样（downscale）输出的跳跃连接（skip connections）,具体来说，下采样和上采样使用了上图中被称为ResSkip的简单策略。
 
 首先，使用线性插值方法将输入的特征图上采样到与需要跳跃连接的下采样特征图相同的大小。
 
