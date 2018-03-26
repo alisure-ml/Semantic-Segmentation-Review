@@ -73,7 +73,7 @@
 ![BlitzNet realtime](readme/BlitzNet_realtime.png)
 
 
-### 相关连接
+### 相关链接
 
 [项目地址：http://thoth.inrialpes.fr/research/blitznet/](http://thoth.inrialpes.fr/research/blitznet/)
 
