@@ -17,7 +17,7 @@
 由于论文将目标检测和语义分割结合来解决多任务场景理解问题，为此提出了称为BlitzNet的架构。BlitzNet可以产生实时且精确的分割和目标边界框。
 
 
-### 模型的全局视图
+### 网络架构
 
 ![BlitzNet architecture](readme/BlitzNet_architecture.png)
 
@@ -28,11 +28,11 @@
 最终，在输出的多个尺度的反卷积层上，通过简单的卷积层实现预测：一个用于目标检测（上面），一个用于语义分割（下面）。
 
 
-### ResSkip Blocks
+### ResSkip模块
 
 ![BlitzNet ResSkip block](readme/BlitzNet_ResSkip_block.png)
 
-模型中使用了联合上采样（upscale）输出和下采样（downscale）输出的跳跃连接（skip connections）,具体来说，下采样和上采样使用了上图中被称为ResSkip的简单策略。
+模型中使用了联合上采样（upscale）输出和下采样（downscale）输出的跳跃连接（skip connections）,具体来说，下采样和上采样使用了被称为ResSkip的简单策略。
 
 首先，使用线性插值方法将输入的特征图上采样到与需要跳跃连接的下采样特征图相同的大小。
 
@@ -80,3 +80,6 @@
 [论文地址：https://arxiv.org/abs/1708.02813](https://arxiv.org/abs/1708.02813)
 
 [源码地址：https://github.com/dvornikita/blitznet](https://github.com/dvornikita/blitznet)
+
+[SSD：https://arxiv.org/abs/1512.02325](https://arxiv.org/abs/1512.02325)
+
